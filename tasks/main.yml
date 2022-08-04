@@ -1,4 +1,12 @@
 ---
-- name: Hello, World
-  ansible.builtin.debug:
-    msg: "Hello, World!"
+- name: Ensure that the `network-scripts` package is installed
+  ansible.builtin.package:
+    name: "network-scripts"
+    state: present
+  become: true
+
+- name: Ensure that the `network` service has been selected over `NetworkManager`
+  ansible.builtin.service:
+    name: "network"
+    enabled: true
+  become: true
