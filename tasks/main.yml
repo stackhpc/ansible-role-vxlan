@@ -10,3 +10,13 @@
     name: "network"
     enabled: true
   become: true
+
+- name: Ensure the interface scripts are present within `/etc/sysconfig/network-scripts/`
+  ansible.builtin.copy:
+    src: "files/{{ item }}"
+    dest: "/etc/sysconfig/network-scripts/{{ item }}"
+    mode: "+x"
+  with_items:
+    - ifup-vxlan
+    - ifdown-vxlan
+  become: true
