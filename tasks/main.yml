@@ -20,3 +20,10 @@
     - ifup-vxlan
     - ifdown-vxlan
   become: true
+
+- name: Ensure the `VXLAN` configuration is present within `/etc/sysconfig/network-scripts/`
+  ansible.builtin.template:
+    src: "templates/ifcfg-vxlan.j2"
+    dest: "/etc/sysconfig/network-scripts/ifcfg-vxlan0"
+    mode: "0644"
+  become: true
