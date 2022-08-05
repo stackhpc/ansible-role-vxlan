@@ -1,2 +1,9 @@
 ---
-# defaults file for vxlan
+vxlan_vni: 42
+vxlan_ttl: 10
+vxlan_phys_dev: eth0
+vxlan_dstport: 4789
+vxlan_bootproto: none
+vxlan_onboot: "yes"
+
+vxlan_interfaces: []
