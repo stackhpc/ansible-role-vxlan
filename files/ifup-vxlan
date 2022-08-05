@@ -17,7 +17,7 @@ source_config
 
 ip link add ${DEVICE} type vxlan \
         id ${VNI} \
-        group 224.0.0.${VNI} \
+        group ${GROUP} \
         ttl ${TTL:-10} \
         dev ${PHYS_DEV} \
         dstport ${PORT:-4789}

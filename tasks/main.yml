@@ -26,5 +26,5 @@
     src: "templates/ifcfg-vxlan.j2"
     dest: "/etc/sysconfig/network-scripts/ifcfg-{{ item.device }}"
     mode: "0644"
-  become: true
   with_items: "{{ vxlan_interfaces }}"
+  become: true

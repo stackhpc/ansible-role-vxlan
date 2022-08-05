@@ -1,6 +1,7 @@
 DEVICE={{ item.device }}
 TYPE=VXLAN
 VNI={{ item.vni | default(vxlan_vni) }}
+GROUP={{ item.group }}
 TTL={{ item.ttl | default(vxlan_ttl) }}
 PHYS_DEV={{ item.phys_dev | default(vxlan_phys_dev) }}
 DSTPORT={{ item.dstport | default(vxlan_dstport) }}
