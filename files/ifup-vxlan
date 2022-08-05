@@ -22,6 +22,4 @@ ip link add ${DEVICE} type vxlan \
         dev ${PHYS_DEV} \
         dstport ${PORT:-4789}
 
-ip a add ${ADDRESS} dev ${DEVICE}
-
 /etc/sysconfig/network-scripts/ifup-eth ${DEVICE}
