@@ -5,7 +5,9 @@ GROUP={{ item.group }}
 TTL={{ item.ttl | default(vxlan_ttl) }}
 PHYS_DEV={{ item.phys_dev | default(vxlan_phys_dev) }}
 DSTPORT={{ item.dstport | default(vxlan_dstport) }}
+{% if item.ipaddr is defined %}
 IPADDR={{ item.ipaddr }}
 PREFIX={{ item.prefix }}
+{% endif %}
 BOOTPROTO={{ item.bootproto | default(vxlan_bootproto) }}
 ONBOOT={{ item.onboot | default(vxlan_onboot) }}
