@@ -13,8 +13,5 @@ need_config ${CONFIG}
 
 source_config
 
-/sbin/ip link set dev ${DEVICE} down
-/sbin/ip link del ${DEVICE}
-
 /etc/sysconfig/network-scripts/ifdown-eth ${CONFIG}
 /etc/sysconfig/network-scripts/ifdown-post ${CONFIG}
