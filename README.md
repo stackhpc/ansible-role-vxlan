@@ -1,38 +1,82 @@
-Role Name
+VXLAN
 =========
 
-A brief description of the role goes here.
-
-Requirements
-------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role creates persistent VXLAN interfaces with the use of [Network Scripts](https://pkgs.org/download/network-scripts).
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The role uses the same variable names as `Network Scripts`. It is recommended to review the documentation on [Network Scripts](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/deployment_guide/s1-networkscripts-interfaces). Below are the variables relevant and supported by this role.
 
-Dependencies
-------------
+`vxlan_vni`: sets the VXLAN network identifier for the VXLAN interfaces
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+`vxlan_ttl`: set the time-to-live for the packets transmitted over the interface
+
+`vxlan_phys_dev`: set the physical device for the VXLAN interface to pair with
+
+`vxlan_dstport`: set the port for the VXLAN to reside on
+
+`vxlan_bootproto`: specify boot protocol used with the interface
+
+`vxlan_onboot`: set to `yes` if the VXLAN interface should be brought up on boot otherwise `no`
+
+`vxlan_interfaces`: list of interfaces to be created can set specific instances of the variables defined above in addition to some others
+
+`vxlan_device`: name assigned the VXLAN interface
+
+`vxlan_ipaddr`: the IPV4 address assigned to the VXLAN interface
+
+`vxlan_prefix`: the subnet mask use with the `vxlan_ipaddr`
+
+`vxlan_group`: the multicast group the VXLAN will operate on
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+  Include the role into a playbook as you would any other role.
 
-    - hosts: servers
+    - hosts: all
       roles:
-         - { role: username.rolename, x: 42 }
+        - role: vxlan
+          vars:
+            vxlan_vni: 10
+
+  For variables such as `vxlan_ipaddr` it is best to define them on a host by host basis.
+
+  ### /host_vars/host1
+
+    vxlan_interfaces:
+      - device: vxlan0
+        vxlan_ipaddr: 192.168.0.2
+        vxlan_prefix: 24
+        vxlan_group: 224.0.0.100
+
+  ### /host_vars/host2
+
+    vxlan_interfaces:
+      - device: vxlan0
+        vxlan_ipaddr: 192.168.0.3
+        vxlan_prefix: 24
+        vxlan_group: 224.0.0.100
+
+You may also define multiple VXLAN interfaces per host however you must provide a unique `vxlan_vni` for each device defined in `vxlan_interfaces`
+
+  ### /host_vars/host1
+
+    vxlan_interfaces:
+      - device: vxlan0
+        vxlan_vni: 10
+        vxlan_group: 224.0.0.200
+      - device: vxlan1
+        vxlan_vni: 20
+        vxlan_group: 224.0.0.200
 
 License
 -------
 
-BSD
+Apache License 2.0
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[StackHPC](https://www.stackhpc.com/)
