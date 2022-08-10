@@ -21,25 +21,29 @@ The role uses the same variable names as `Network Scripts`. It is recommended to
 `vxlan_onboot`: set to `yes` if the VXLAN interface should be brought up on boot otherwise `no`
 
 `vxlan_interfaces`: list of interfaces to be created can set specific instances of the variables defined above in addition to some others
-
-`vxlan_device`: name assigned the VXLAN interface
-
-`vxlan_ipaddr`: the IPV4 address assigned to the VXLAN interface
-
-`vxlan_prefix`: the subnet mask use with the `vxlan_ipaddr`
-
-`vxlan_group`: the multicast group the VXLAN will operate on
+> `device`: name assigned the VXLAN interface
+>
+> `ipaddr`: the IPV4 address assigned to the VXLAN interface
+>
+> `prefix`: the subnet mask use with the `ipaddr`
+>
+> `group`: the multicast group the VXLAN will operate on
 
 Example Playbook
 ----------------
 
   Include the role into a playbook as you would any other role.
 
-    - hosts: all
+    - hosts: host1
       roles:
         - role: vxlan
           vars:
             vxlan_vni: 10
+            vxlan_interfaces:
+              - device: vxlan0
+                ipaddr: 192.168.0.2
+                group: 224.0.0.100
+
 
   For variables such as `vxlan_ipaddr` it is best to define them on a host by host basis.
 
@@ -47,17 +51,15 @@ Example Playbook
 
     vxlan_interfaces:
       - device: vxlan0
-        vxlan_ipaddr: 192.168.0.2
-        vxlan_prefix: 24
-        vxlan_group: 224.0.0.100
+        ipaddr: 192.168.0.2
+        group: 224.0.0.100
 
   ### /host_vars/host2
 
     vxlan_interfaces:
       - device: vxlan0
-        vxlan_ipaddr: 192.168.0.3
-        vxlan_prefix: 24
-        vxlan_group: 224.0.0.100
+        ipaddr: 192.168.0.3
+        group: 224.0.0.100
 
 You may also define multiple VXLAN interfaces per host however you must provide a unique `vxlan_vni` for each device defined in `vxlan_interfaces`
 
@@ -65,11 +67,11 @@ You may also define multiple VXLAN interfaces per host however you must provide 
 
     vxlan_interfaces:
       - device: vxlan0
-        vxlan_vni: 10
-        vxlan_group: 224.0.0.200
+        vni: 10
+        group: 224.0.0.200
       - device: vxlan1
-        vxlan_vni: 20
-        vxlan_group: 224.0.0.200
+        vni: 20
+        group: 224.0.0.200
 
 License
 -------
