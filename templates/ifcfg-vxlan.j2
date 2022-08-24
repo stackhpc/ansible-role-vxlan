@@ -11,3 +11,6 @@ PREFIX={{ item.prefix }}
 {% endif %}
 BOOTPROTO={{ item.bootproto | default(vxlan_bootproto) }}
 ONBOOT={{ item.onboot | default(vxlan_onboot) }}
+{% if item.bridge is defined %}
+BRIDGE={{ item.bridge }}
+{% endif %}

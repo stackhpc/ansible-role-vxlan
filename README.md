@@ -28,6 +28,8 @@ The role uses the same variable names as `Network Scripts`. It is recommended to
 > `prefix`: the subnet mask use with the `ipaddr`
 >
 > `group`: the multicast group the VXLAN will operate on
+>
+> `bridge`: if set establish a bridge between this VXLAN and the specified interface
 
 Example Playbook
 ----------------
