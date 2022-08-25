@@ -28,6 +28,8 @@ The role uses the same variable names as `Network Scripts`. It is recommended to
 > `prefix`: the subnet mask use with the `ipaddr`
 >
 > `group`: the multicast group the VXLAN will operate on
+>
+> `bridge`: if set establish a bridge between this VXLAN and the specified interface
 
 Example Playbook
 ----------------
@@ -72,6 +74,15 @@ You may also define multiple VXLAN interfaces per host however you must provide 
       - device: vxlan1
         vni: 20
         group: 224.0.0.200
+
+You may also set a bridge for vxlan interface to operate over.
+
+  ### /host_vars/host1
+
+    vxlan_interfaces:
+      - device: vxlan0
+        group: 224.0.0.10
+        bridge: breth1
 
 License
 -------
