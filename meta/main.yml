@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: vxlan
   author: Jack Hodgkiss
   description: Create persistent VXLAN interfaces with the use of Network Scripts
   company: StackHPC
