@@ -1,7 +1,7 @@
 VXLAN
 =========
 
-This role creates persistent VXLAN interfaces with the use of [Network Scripts](https://pkgs.org/download/network-scripts).
+This role creates persistent VXLAN interfaces with the use of [Network Scripts](https://pkgs.org/download/network-scripts) or [NetworkManger](https://pkgs.org/download/NetworkManager).
 
 Role Variables
 --------------
@@ -16,20 +16,22 @@ The role uses the same variable names as `Network Scripts`. It is recommended to
 
 `vxlan_dstport`: set the port for the VXLAN to reside on
 
-`vxlan_bootproto`: specify boot protocol used with the interface
+`vxlan_bootproto`: specify boot protocol used with the interface (unsupported when using NetworkManger, always none)
 
 `vxlan_onboot`: set to `yes` if the VXLAN interface should be brought up on boot otherwise `no`
 
 `vxlan_interfaces`: list of interfaces to be created can set specific instances of the variables defined above in addition to some others
 > `device`: name assigned the VXLAN interface
 >
-> `ipaddr`: the IPV4 address assigned to the VXLAN interface
+> `ipaddr`: the IPV4 address assigned to the VXLAN interface (unsupported when using NetworkManger)
 >
-> `prefix`: the subnet mask use with the `ipaddr`
+> `prefix`: the subnet mask use with the `ipaddr` (unsupported when using NetworkManger)
 >
 > `group`: the multicast group the VXLAN will operate on
 >
 > `bridge`: if set establish a bridge between this VXLAN and the specified interface
+
+By default, Network Scripts will be used unless it is unavailable. Usage of either Network Scripts or NetworkManager enforced by setting `force_ns` or `force_nm` to true. 
 
 Example Playbook
 ----------------
