@@ -1,4 +1,11 @@
 ---
+- name: Ensure NetworkManager is installed (Ubuntu)
+  ansible.builtin.package:
+    name: network-manager
+    state: present
+  become: true
+  when: ansible_facts['distribution'] == "Ubuntu"
+
 - name: Ensure the `VXLAN` configuration is present within `/etc/NetworkManager/system-connections`
   ansible.builtin.template:
     src: "templates/nmconnection-vxlan.j2"
