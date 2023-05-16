@@ -18,4 +18,7 @@
   when: (not install_result.failed) or force_ns
 
 - include_tasks: networkmanager.yml
-  when: (install_result.failed) or force_nm
+  when: (install_result.failed and ansible_facts['distribution'] == "Rocky") or force_nm
+
+- include_tasks: systemd-networkd.yml
+  when: (install_result.failed and ansible_facts['distribution'] == "Ubuntu") or force_sd

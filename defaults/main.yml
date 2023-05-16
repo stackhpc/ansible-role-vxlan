@@ -10,3 +10,4 @@ vxlan_interfaces: []
 
 force_nm: false
 force_ns: false
+force_sd: false
